@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.10-alpine
 LABEL maintainer=noor832.com
 
 ENV PYTHONUNBUFFERED=1
