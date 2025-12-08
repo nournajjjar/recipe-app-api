@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test-lint:
-    name: Test and lint
+    name: Test and Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -17,8 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Test
-        run: docker-compose run --rm app sh -c "/py/bin/python manage.py test "
+      - name: Build Docker image
+        run: docker-compose build
 
-      - name: Lint
-        run: docker-compose run --rm app sh -c "flake8"
+      - name: Run Django tests
+        run: docker-compose run --rm \
+          -v "" \
+          app sh -c "/py/bin/python manage.py test"
+
+      - name: Run flake8 Lint
+        run: docker-compose run --rm \
+          -v "" \
+          app sh -c "flake8"
